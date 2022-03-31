@@ -28,6 +28,35 @@
             return cookieValue;
         }
         const csrftoken = getToken('csrftoken');
+
+        function getCookie(name) {
+            //split cookie string and all individual name = values pairs in an array
+            var cookieArr = document.cookie.split(";");
+
+            //loop through the array elements
+            for (var i = 0; i < cookieArr.length; i++) {
+                const cookiePair = cookieArr[i].split("=");
+                /* Removing whitespace at the begining of the cookie name
+                and compare it with the given string */
+
+                if (name == cookieArr[0].trim()) {
+                    //Decode the cookie value and return
+
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null; //Return null if not found
+
+        }
+        var cart = JSON.parse(getCookie('cart'));
+        if(cart == undefined){
+            cart = {}
+            console.log('Cart was created:');
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        console.log('Cart:', cart);
+    
+        
     </script>
     <title>Ecom</title>
 
